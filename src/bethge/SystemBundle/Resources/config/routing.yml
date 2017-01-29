@@ -1,0 +1,11 @@
+jsonrpc_index:
+    path:     /testapi/json/{version}/{namespace}/{service}/{method}
+    defaults: { _controller: SystemBundle:RpcTestApi:index, version: null, namespace: null, service: null, method: null }
+    
+jsonrpc_handle:
+    path:     /rpc/{format}/{version}/{namespace}/{service}/{method}
+    defaults: { _controller: SystemBundle:Rpc:handle, format: null, version: null, namespace: null, service: null, method: null }
+
+default_handle:
+    path:     /{version}/{namespace}/{service}/{method}
+    defaults: { _controller: SystemBundle:Default:handle }

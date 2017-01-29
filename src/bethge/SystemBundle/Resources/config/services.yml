@@ -1,0 +1,27 @@
+services:
+
+    System.DoctrineOrmPersistanceManager:
+        class: bethge\SystemBundle\Persister\DoctrineOrmPersistenceManager
+        arguments: ["@doctrine.orm.entity_manager"]
+        
+    System.JsonSerializer:
+        class: bethge\SystemBundle\Components\Serializer\JsonSerializer
+        arguments: []
+        
+    System.XmlSerializer:
+        class: bethge\SystemBundle\Components\Serializer\XmlSerializer
+        arguments: []
+
+    System.RpcException:
+        class: bethge\SystemBundle\Controller\RpcException
+
+    
+        
+#    abe_entity_manager:
+#        public: false
+#        class: bethge\SystemBundle\Persister\AbeEntityManagerDecorator
+#        decorates: doctrine.orm.default_entity_manager
+#        arguments: ["@abe_entity_manager.inner"]
+
+        
+    

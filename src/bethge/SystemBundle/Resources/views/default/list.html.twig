@@ -1,0 +1,27 @@
+{% extends 'SystemBundle:default:base.html.twig' %}
+
+{% block body %}
+    <table width="100%">
+        <tr>
+            <th></th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Test Repository</th>
+            <th>Created</th>
+            <th>Modifieded</th>
+        </tr>
+    
+    {% for obj in objs %}
+        <tr>
+            <td><input class="selection" type="checkbox" value="{{ obj.id }}" /></td>
+            <td>{{ obj.id }}</td>
+            <td>{{ obj.name }}</td>
+            <td>{{ serviceName }}</td>
+            <td>{{ obj.testRepositoryResponse }}</td>
+            <td>{{ obj.createdAt|date("Y-m-d H:i:s") }}</td>
+            <td>{{ obj.modifiedAt|date("Y-m-d H:i:s") }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

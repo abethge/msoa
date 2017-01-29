@@ -1,0 +1,12 @@
+{% extends 'SystemBundle:default:base.html.twig' %}
+
+{% block body %}
+    <h2>{{ obj.id }}</h2>  
+    <form action="/{{namespace}}/{{ serviceName }}/{{version}}/save" method="post">
+        <input name="id" type="hidden" value="{{ obj.id }}" />
+        <label for="name">Name:</label>
+        <input id="name" class="attribute" name="name" type="text" value="{{ obj.name }}" />
+        <br />
+        <input class="button" type="submit" value="Ok" />
+    </form>
+{% endblock %}

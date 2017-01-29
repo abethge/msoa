@@ -1,0 +1,21 @@
+{% extends 'SystemBundle:default:base.html.twig' %}
+
+{% block body %}
+    <p>{{ message }}</p>
+    <table width="100%">
+        <tr>
+            <th>Class</th>
+            <th>Method</th>
+            <th>Line</th>
+        </tr>
+        
+        {% for entry in trace.entries %}
+            <tr>
+                <td>{{ entry.class }}</td>
+                <td>{{ entry.method }}</td>
+                <td>{{ entry.line }}</td>
+            </tr>
+        {% endfor %}
+        
+    </table>
+{% endblock %}

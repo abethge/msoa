@@ -1,0 +1,19 @@
+bethge\SystemBundle\Entity\Node:
+    type: entity
+    table: null
+    repositoryClass: bethge\SystemBundle\Entity\NodeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+        createdAt: 
+            type: datetime
+        modifiedAt: 
+            type: datetime
+        
+    lifecycleCallbacks: {  }

@@ -1,0 +1,100 @@
+{% extends 'SystemBundle:default:base.html.twig' %}
+
+{% block body %}
+    {% if not version is null %}
+        {% if not namespace is null %}
+            {% if not service is null %}
+                {% if not method is null %} {# list attributes --- #}
+                <strong>Service URL:</strong> <a href="/testapi/json">/rpc/json</a><a href="/testapi/json/{{version}}">/{{version}}</a><a href="/testapi/json/{{version}}/{{namespace}}">/{{namespace}}</a><a href="/testapi/json/{{version}}/{{namespace}}/{{service}}">/{{service}}</a>/{{method}} 
+                <br />
+                <strong>Parameters:</strong><br />
+                {% for param in params %}
+                <label for="{{ param.name }}">{{ param.name }}:</label>
+                <input id="{{ param.name }}" class="attribute" name="{{ param.name }}" type="text" value="" />
+                <br />
+                {% endfor %}
+                <input id="jsonrpc-pre-send" class="button" type="button" value="Generate" />
+                <br />
+                <strong>Request:</strong><br />
+                <pre contenteditable id="jsonrpc-request" style="font-family: monospace; font-size: 12px; line-height: 160%;"></pre>
+                <br />
+                <input id="jsonrpc-send" class="button" type="button" value="Send" />
+                <br />
+                <strong>Response:</strong><br />
+                <pre id="jsonrpc-response" style="font-family: monospace; font-size: 12px; line-height: 160%;"></pre>
+                
+                <script>
+                    jQuery('#jsonrpc-send').click(
+                        function() {
+                            jQuery.ajax({
+                                url: "/rpc/json/{{version}}/{{namespace}}/{{service}}/{{method}}",
+                                dataType: "json",
+                                method: "POST",
+                                data: JSON.parse('' + jQuery('#jsonrpc-request').html() + '')
+                            }).done(function(data) {
+                                jQuery('#jsonrpc-response').html(
+                                    "\n" + JSON.stringify(data, null, 4)
+                                );
+                            }).fail(function(xhr, textStatus, errorThrown) {
+                                jQuery('#jsonrpc-response').html(errorThrown + ":\n\n" + xhr.responseText);
+                            });
+                        }
+                    );
+                
+                    jQuery('#jsonrpc-pre-send').click(
+                        function() {
+                            var data = "";
+                            {% for param in params %}
+                            data += '"{{ param.name }}": ' + jQuery('#{{ param.name }}').val() + ',';
+                            {% endfor %}
+                            if (data.length > 0) {
+                                data = data.substring(0, data.length - 1); // cut trailing ','
+                            }
+                            data = '{"methodParams": {' + data + '}, "responseTemplate": []}';
+                            jQuery('#jsonrpc-request').html(data);
+                        }
+                    );
+                </script>
+               
+                {% else %} {# list methods ------------------------ #}
+                <strong>Service URL:</strong> <a href="/testapi/json">/rpc/json</a><a href="/testapi/json/{{version}}">/{{ version }}</a><a href="/testapi/json/{{version}}/{{namespace}}">/{{ namespace }}</a>/{{service}} 
+                <ul>
+                    {% for entry in list %}
+                    <li>
+                        <a href="{{service}}/{{ entry }}">{{ entry }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            {% else %} {# list services ------------------------------- #}
+            <strong>Service URL:</strong> <a href="/testapi/json">/rpc/json</a><a href="/testapi/json/{{version}}">/{{ version }}</a>/{{namespace}}
+            <ul>
+                {% for entry in list %}
+                <li>
+                    <a href="{{namespace}}/{{ entry }}">{{ entry }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        {% else %} {# list namespaces --------------------------- #}
+        <strong>Service URL:</strong> <a href="/testapi/json">/rpc/json</a>/{{version}}
+        <ul>
+            {% for entry in list %}
+            <li>
+                <a href="{{version}}/{{ entry }}">{{ entry }}</a>
+            </li>
+            {% endfor %}
+        </ul>    
+        {% endif %}    
+    {% else %} {# list versions ----------------------------- #}
+    <strong>Service URL:</strong> /rpc/json
+    <ul>
+        {% for entry in list %}
+         <li>
+             <a href="/testapi/json/{{ entry }}">{{ entry }}</a>
+         </li>
+         {% endfor %}
+    </ul>
+    {% endif %}
+    
+{% endblock %}

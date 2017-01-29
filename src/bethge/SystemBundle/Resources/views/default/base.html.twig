@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="" />
+        <meta name="author" content="http://www.bethge-itconsulting.de" />
+        <title>{% block title %}System Admin{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('css/Reset.css') }}" type="text/css" media="screen" />
+        <link rel="stylesheet" href="{{ asset('css/MainMenu.css') }}" type="text/css" media="screen" />
+        <link rel="stylesheet" href="{{ asset('css/Text.css') }}" type="text/css" media="screen" />
+        <link rel="stylesheet" href="{{ asset('css/Layout.css') }}" type="text/css" media="screen" />
+        <!-- Menu support -->    
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://css3-mediaqueries-js.googlecode.com/files/css3-mediaqueries.js" type="text/javascript"></script>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="{{ asset('js/jquery-1.11.2.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/systemadmin.js') }}" type="text/javascript"></script>
+    </head>
+
+    <body>       
+        <div id="wrapper">
+            <header>
+                <div class="header-image-box"> </div>
+                <div class="container-nav">
+                <!--
+                    <ul class="main-menu" id="menu">
+                        <li><a id="testsuite" href="/">Test suite</a></li>
+                        <li><a id="list" href="list" title="list">List</a></li>
+                        <li><a id="create" href="create" title="create">Create</a></li>
+                        <li><a id="edit" href="#" title="edit">Edit</a></li>
+                        <li><a id="delete" href="#" title="delete">Delete</a></li>
+                    </ul>
+                -->
+                </div>
+            </header>
+    
+            <div class="container">
+                <section id="content">
+                    <h1>{{ title }}</h1>
+                    {% block body %}{% endblock %}
+                </section>
+            </div>
+                
+            <br style="clear: both;" /> 
+            
+        </div>
+        
+        <footer>
+            <div class="container">
+                <div class="footer-box">
+                    <div class="copyright">
+                        <a target="_blank" href="http://www.bethge-itconsulting.de">&copy; 2015 Bethge IT Consulting</a>
+                    </div>
+                </div>
+            </div>            
+            <div class="clear"></div>
+        </footer>   
+        
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
+
+
+    
+
