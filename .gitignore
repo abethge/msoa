@@ -1,0 +1,8 @@
+.settings/
+app/
+bin/
+vendor/
+web/
+.buildpath
+.project
+composer.*
